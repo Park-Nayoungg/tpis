@@ -20,12 +20,6 @@ const processCards = [
     ["03", "시선 훈련", "‘어떤 순서로 봐야 하는지’를\n풀이 루틴으로 바꿔 적용합니다"]
 ];
 
-const faqs = [
-    ["어떤 방식으로 진단하나요?", "문제를 읽는 순서, 오래 머무는 지점, 판단이 흔들리는 구간을 합격자 기준과 비교합니다."],
-    ["PSAT 초시생도 사용할 수 있나요?", "가능합니다. 풀이량이 쌓이기 전부터 문제를 보는 순서를 잡아두면 훈련 효율이 높아집니다."],
-    ["문의 후에는 어떻게 진행되나요?", "입력해 주신 연락처로 진단 가능 일정과 준비 사항을 안내드립니다."]
-];
-
 type GazeMode = "mine" | "high";
 type HeroVisualMode = "constellation" | "card";
 type ReferenceMode = "before" | "after";
@@ -90,6 +84,8 @@ const constellationLinks = [
 
 function App() {
     const [status, setStatus] = useState("");
+    const [isContactOpen, setIsContactOpen] = useState(false);
+    const floatingContactRef = useRef<HTMLDivElement>(null);
     const contactScriptUrl = import.meta.env.VITE_CONTACT_SCRIPT_URL ?? "";
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -115,16 +111,60 @@ function App() {
         }
     };
 
+    const openContactBubble = () => {
+        setIsContactOpen(true);
+
+        window.setTimeout(() => {
+            floatingContactRef.current?.querySelector<HTMLInputElement>("input")?.focus();
+        }, 60);
+    };
+
+    useEffect(() => {
+        if (!isContactOpen) {
+            return;
+        }
+
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === "Escape") {
+                setIsContactOpen(false);
+            }
+        };
+
+        const handlePointerDown = (event: PointerEvent) => {
+            const target = event.target as Node;
+
+            if (!floatingContactRef.current?.contains(target)) {
+                setIsContactOpen(false);
+            }
+        };
+
+        window.addEventListener("keydown", handleKeyDown);
+        window.addEventListener("pointerdown", handlePointerDown);
+
+        return () => {
+            window.removeEventListener("keydown", handleKeyDown);
+            window.removeEventListener("pointerdown", handlePointerDown);
+        };
+    }, [isContactOpen]);
+
     return (
         <main className="landing">
             <header className="site-header">
                 <a className="brand" href="#top">TPIS</a>
-                <a className="header-cta" href="#contact">무료 진단하기</a>
+                <button className="header-cta" type="button" onClick={openContactBubble}>무료 진단하기</button>
             </header>
 
             <section className="hero section-blue" id="top">
                 <HeroVisual />
-                <a className="floating-cta" href="#contact">무료 진단하기</a>
+                <div className="floating-contact" ref={floatingContactRef}>
+                    {isContactOpen && (
+                        <div className="contact-bubble" role="dialog" aria-label="무료 진단 문의하기">
+                            <button className="contact-bubble__close" type="button" aria-label="문의 폼 닫기" onClick={() => setIsContactOpen(false)}>×</button>
+                            <ContactForm status={status} onSubmit={handleSubmit} />
+                        </div>
+                    )}
+                    <button className="floating-cta" type="button" aria-expanded={isContactOpen} onClick={openContactBubble}>무료 진단하기</button>
+                </div>
             </section>
 
             <section className="problem section-soft">
@@ -223,32 +263,10 @@ function App() {
                     ))}
                 </div>
             </section>
-
-            <section className="faq-contact section-white" id="contact">
-                <div className="faq-block">
-                    <p className="eyebrow left">FAQ</p>
-                    {faqs.map(([question, answer]) => (
-                        <details className="faq-item" key={question} open={question === faqs[0][0]}>
-                            <summary>{question}</summary>
-                            <p>{answer}</p>
-                        </details>
-                    ))}
-                </div>
-                <form className="contact-form" onSubmit={handleSubmit}>
-                    <p className="eyebrow left">Contact</p>
-                    <h2>무료 진단 문의하기</h2>
-                    <input name="name" placeholder="이름" required />
-                    <input name="contact" placeholder="연락처 또는 이메일" required />
-                    <textarea name="message" placeholder="궁금한 점을 남겨주세요" rows={4}></textarea>
-                    <button type="submit">문의하기</button>
-                    {status && <p className="form-status">{status}</p>}
-                </form>
-            </section>
-
             <section className="bottom-cta section-blue">
                 <p>합격으로 가는 가장 빠른 길</p>
                 <h2>합격자의 문제 풀이 방식을<br />먼저 확인해보세요</h2>
-                <a href="#contact">무료 진단하기</a>
+                <button type="button" onClick={openContactBubble}>무료 진단하기</button>
             </section>
 
             <footer className="footer">
@@ -264,6 +282,32 @@ function App() {
                 <small>© 2026 LAPA. All rights reserved.</small>
             </footer>
         </main>
+    );
+}
+
+function ContactForm({ onSubmit, status }: { onSubmit: (event: FormEvent<HTMLFormElement>) => void; status: string }) {
+    return (
+        <form className="contact-form contact-form--bubble" onSubmit={onSubmit}>
+            <div className="contact-form__head">
+                <p className="eyebrow left">무료 진단</p>
+                <h2>문의하기</h2>
+                <span>남겨주신 정보로 진단 가능 일정과 준비사항을 안내드립니다.</span>
+            </div>
+            <label>
+                <span>이름</span>
+                <input name="name" placeholder="홍길동" required />
+            </label>
+            <label>
+                <span>연락처 또는 이메일</span>
+                <input name="contact" placeholder="010-0000-0000 또는 email@example.com" required />
+            </label>
+            <label>
+                <span>궁금한 점</span>
+                <textarea name="message" placeholder="현재 고민 중인 과목이나 풀이 상황을 적어주세요" rows={4}></textarea>
+            </label>
+            <button type="submit">문의하기</button>
+            {status && <p className="form-status">{status}</p>}
+        </form>
     );
 }
 
