@@ -182,37 +182,11 @@ function App() {
             </section>
 
             <section className="why section-muted">
-                <SectionHeading eyebrow="Why TPIS" title={<>같은 문제를 풀어도,<br />합격자의 풀이과정은 다릅니다</>} />
-                <div className="why-comparison" aria-label="저성과자와 고성과자의 풀이과정 비교">
-                    <article className="why-panel">
-                        <h3>저성과자 → 반응적</h3>
-                        <div className="path-card reactive-path" aria-hidden="true">
-                            <span className="path-line path-line-one"></span>
-                            <span className="path-line path-line-two"></span>
-                            <span className="path-line path-line-three"></span>
-                            <span className="path-line path-line-four"></span>
-                            <span className="path-dot path-dot-one"></span>
-                            <span className="path-dot path-dot-two"></span>
-                            <span className="path-dot path-dot-three"></span>
-                            <span className="path-dot path-dot-four"></span>
-                        </div>
-                    </article>
-                    <article className="why-panel">
-                        <h3>고성과자 → 선제적</h3>
-                        <div className="path-card proactive-path" aria-hidden="true">
-                            <span className="path-line path-line-one"></span>
-                            <span className="path-line path-line-two"></span>
-                            <span className="path-line path-line-three"></span>
-                            <span className="path-line path-line-four"></span>
-                            <span className="path-dot path-dot-one"></span>
-                            <span className="path-dot path-dot-two"></span>
-                            <span className="path-dot path-dot-three"></span>
-                            <span className="path-dot path-dot-four"></span>
-                            <span className="path-dot path-dot-five"></span>
-                        </div>
-                    </article>
+                <SectionHeading eyebrow="Why TPIS" title={<>합격자의 시선에는<br />이유가 있습니다.</>} />
+                <div className="why-animation">
+                    <img src="/assets/landing-animation.gif" alt="TPIS 시선 패턴 분석 애니메이션" />
                 </div>
-                <p className="section-punch">그래서 TPIS는 운, 감, 암기량이 아닌<br /><strong>‘시선’</strong>으로 합격을 만듭니다</p>
+                <p className="section-punch">TPIS는 인지 처리 과정을 시각화하여,<br /><strong>‘시선 패턴’</strong>으로 합격의 해답을 제시합니다.</p>
             </section>
 
             <section className="solution section-gradient">
@@ -264,6 +238,9 @@ function App() {
                 </div>
             </section>
             <section className="bottom-cta section-blue">
+                <div className="bottom-cta__constellation" aria-hidden="true">
+                    <HeroConstellation className="hero-constellation--cta" />
+                </div>
                 <p>합격으로 가는 가장 빠른 길</p>
                 <h2>합격자의 문제 풀이 방식을<br />먼저 확인해보세요</h2>
                 <button type="button" onClick={openContactBubble}>무료 진단하기</button>
@@ -461,7 +438,7 @@ function HeroQuestionMock({ mode }: { mode: GazeMode }) {
     );
 }
 
-function HeroConstellation() {
+function HeroConstellation({ className = "" }: { className?: string }) {
     const lineRefs = useRef<SVGLineElement[]>([]);
     const dotRefs = useRef<SVGCircleElement[]>([]);
 
@@ -546,7 +523,7 @@ function HeroConstellation() {
     }, []);
 
     return (
-        <svg className="hero-constellation" viewBox="-75 -70 380 410">
+        <svg className={`hero-constellation ${className}`} viewBox="-75 -70 380 410">
             <g>
                 {constellationLinks.map(([from, to], index) => (
                     <line

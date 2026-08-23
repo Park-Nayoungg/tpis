@@ -104,29 +104,13 @@ button, input, textarea { font: inherit; }
 .problem .section-punch { max-width: 720px; font-size: 40px; line-height: 58px; }
 .problem .section-punch strong { font-size: 48px; }
 
-.why-comparison { display: grid; max-width: 947px; margin: 0 auto clamp(44px, 5vw, 64px); gap: 28px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.why-panel { padding: 28px 28px 34px; border-radius: 20px; background: rgba(222, 226, 242, 0.52); text-align: center; }
-.why-panel h3 { margin: 0 0 22px; font-size: clamp(20px, 1.7vw, 26px); font-weight: 800; line-height: 1.3; }
-.path-card { position: relative; width: 100%; max-width: 401px; aspect-ratio: 1.12; margin: 0 auto; overflow: hidden; border-radius: 14px; background: #ffffff; }
-.path-line { position: absolute; z-index: 1; height: 1.5px; background: #1a1a1a; transform-origin: left center; }
-.path-dot { position: absolute; z-index: 2; width: 26px; height: 26px; border-radius: 50%; background: var(--primary); }
-.reactive-path .path-line-one { top: 48%; left: 37%; width: 10%; transform: rotate(46deg); }
-.reactive-path .path-line-two { top: 45%; left: 38%; width: 12%; transform: rotate(-20deg); }
-.reactive-path .path-line-three { top: 67%; left: 31%; width: 14%; transform: rotate(-30deg); }
-.reactive-path .path-line-four { top: 31%; left: 38%; width: 14%; transform: rotate(35deg); }
-.reactive-path .path-dot-one { top: 42%; left: 32%; }
-.reactive-path .path-dot-two { top: 38%; left: 48%; width: 19px; height: 19px; }
-.reactive-path .path-dot-three { top: 54%; left: 42%; width: 27px; height: 27px; }
-.reactive-path .path-dot-four { top: 64%; left: 24%; width: 31px; height: 31px; }
-.proactive-path .path-line-one { top: 50%; left: 34%; width: 30%; transform: rotate(-39deg); }
-.proactive-path .path-line-two { top: 50%; left: 35%; width: 46%; transform: rotate(-11deg); }
-.proactive-path .path-line-three { top: 69%; left: 19%; width: 54%; transform: rotate(-43deg); }
-.proactive-path .path-line-four { top: 74%; left: 50%; width: 40%; transform: rotate(-46deg); }
-.proactive-path .path-dot-one { top: 48%; left: 29%; }
-.proactive-path .path-dot-two { top: 25%; left: 57%; width: 20px; height: 20px; }
-.proactive-path .path-dot-three { top: 38%; left: 77%; width: 18px; height: 18px; }
-.proactive-path .path-dot-four { top: 67%; left: 17%; width: 20px; height: 20px; }
-.proactive-path .path-dot-five { top: 72%; left: 48%; width: 14px; height: 14px; }
+.why.section-muted { min-height: 1080px; padding: 132px 24px 92px; }
+.why .section-heading { margin-bottom: 23px; }
+.why .section-heading h2 { line-height: 58px; }
+.why-animation { width: min(860px, calc(100vw - 48px)); margin: 0 auto 30px; }
+.why-animation img { display: block; width: 100%; height: auto; }
+.why .section-punch { max-width: 940px; font-size: 40px; line-height: 47px; }
+.why .section-punch strong { color: var(--primary); font-size: 1em; }
 
 .solution.section-gradient { min-height: 1200px; padding: 112px 24px 108px; }
 .solution .section-heading { margin-bottom: 96px; }
@@ -188,8 +172,13 @@ button, input, textarea { font: inherit; }
 .form-status { position: relative; margin: 0; color: var(--primary); font-weight: 700; line-height: 1.5; }
 
 .bottom-cta { position: relative; display: flex; min-height: 720px; flex-direction: column; align-items: center; justify-content: center; overflow: hidden; padding: 40px clamp(24px, 4.4vw, 83px); color: #ffffff; text-align: center; background: #ffffff; }
-.bottom-cta::before { position: absolute; inset: 40px clamp(24px, 4.4vw, 83px); border-radius: 48px; background: linear-gradient(180deg, #002496 0%, #000c30 100%); content: ""; }
-.bottom-cta p, .bottom-cta h2, .bottom-cta button { position: relative; z-index: 1; }
+.bottom-cta::before { position: absolute; z-index: 0; inset: 40px clamp(24px, 4.4vw, 83px); border-radius: 48px; background: linear-gradient(180deg, #002496 0%, #000c30 100%); content: ""; }
+.bottom-cta::after { position: absolute; z-index: 2; top: 40px; left: 50%; width: min(851px, calc(100vw - 48px)); height: 640px; background: linear-gradient(180deg, rgba(0, 36, 150, 0.72) 0%, rgba(0, 12, 48, 0.72) 100%); content: ""; pointer-events: none; transform: translateX(-50%); }
+.bottom-cta__constellation { position: absolute; z-index: 1; top: 98px; left: 50%; width: 456px; height: 523px; color: #8195d9; opacity: 0.52; pointer-events: none; transform: translateX(-50%); }
+.hero-constellation--cta { width: 100%; height: 100%; }
+.bottom-cta__constellation .hero-constellation-line { stroke: currentColor; stroke-opacity: 0.22; }
+.bottom-cta__constellation .hero-constellation-dot { fill: currentColor; fill-opacity: 0.72; }
+.bottom-cta p, .bottom-cta h2, .bottom-cta button { position: relative; z-index: 3; }
 .bottom-cta p { margin: 0 0 14px; font-size: 36px; font-weight: 400; line-height: 85px; }
 .bottom-cta h2 { margin: 0; color: #ffffff; font-size: 70px; line-height: 85px; }
 .bottom-cta button { width: 300px; min-height: 96px; margin-top: 64px; border-radius: 18px; color: var(--primary); background: #ffffff; box-shadow: 0 14px 13px rgba(134, 73, 251, 0.5); font-size: 36px; }
@@ -286,10 +275,12 @@ button, input, textarea { font: inherit; }
     .problem .section-punch { font-size: 30px; line-height: 1.34; }
     .problem .section-punch strong { font-size: 1.12em; }
 
-    .why-comparison { width: min(100%, 337px); gap: 18px; grid-template-columns: 1fr; }
-    .why-panel { padding: 20px 18px 24px; border-radius: 18px; }
-    .why-panel h3 { margin-bottom: 16px; font-size: 20px; }
-    .path-card { max-width: 290px; border-radius: 12px; }
+    .why.section-muted { min-height: auto; padding: 84px 18px 80px; }
+    .why .section-heading { margin-bottom: 24px; }
+    .why .eyebrow { color: #a2a2a2; }
+    .why .section-heading h2 { font-size: 30px; line-height: 40px; }
+    .why-animation { width: min(100%, 420px); margin-bottom: 28px; }
+    .why .section-punch { font-size: 24px; line-height: 34px; }
 
     .solution.section-gradient { min-height: 1231px; padding: 46px 13px 48px; background: #d8ddee; }
     .solution .section-heading { margin-bottom: 28px; }
@@ -349,6 +340,8 @@ button, input, textarea { font: inherit; }
 
     .bottom-cta { min-height: 520px; padding: 24px 18px; }
     .bottom-cta::before { inset: 24px 18px; border-radius: 28px; }
+    .bottom-cta::after { top: 24px; width: calc(100vw - 36px); height: calc(100% - 48px); border-radius: 28px; }
+    .bottom-cta__constellation { top: 58px; width: min(330px, 78vw); height: 378px; opacity: 0.46; }
     .bottom-cta p { margin-bottom: 10px; font-size: 18px; line-height: 1.5; }
     .bottom-cta h2 { font-size: 34px; line-height: 1.25; }
     .bottom-cta button { width: min(240px, 78vw); min-height: 64px; margin-top: 38px; border-radius: 14px; font-size: 22px; }
