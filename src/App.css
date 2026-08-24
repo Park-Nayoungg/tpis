@@ -17,12 +17,12 @@ button, input, textarea { font: inherit; }
 
 .section-blue { color: #ffffff; background: linear-gradient(180deg, #002496 0%, #4569c7 44%, #ffffff 100%); }
 
-.hero { position: relative; display: grid; min-height: 960px; place-items: center; padding: 140px 24px 180px; text-align: center; }
+.hero { position: relative; display: grid; min-height: 960px; place-items: center; padding: 160px 24px 180px; text-align: center; }
 .hero-copy { position: relative; z-index: 2; }
 .hero-kicker { margin: 0 0 26px; font-size: clamp(24px, 2vw, 36px); line-height: 1.2; }
 .hero h1 { margin: 0; font-size: clamp(44px, 5vw, 80px); font-weight: 800; line-height: 1.08; text-shadow: 0 0 18px rgba(0, 0, 0, 0.14); }
 .hero h1::first-line { color: #ffffff; }
-.hero-visual { position: absolute; z-index: 1; top: 50%; left: 50%; width: min(920px, 94vw); height: min(700px, 84vw); pointer-events: auto; transform: translate(-50%, -50%); }
+.hero-visual { position: absolute; z-index: 1; top: 56%; left: 50%; width: min(920px, 94vw); height: min(780px, 84vw); pointer-events: auto; transform: translate(-50%, -50%); }
 .hero-visual--card { z-index: 3; }
 .hero-constellation-panel, .hero-card-panel { position: absolute; inset: 0; display: grid; place-items: center; transition: opacity 1s ease, filter 1s ease, transform 1s ease; }
 .hero-constellation-panel { align-content: center; gap: 46px; grid-template-rows: auto auto; }
