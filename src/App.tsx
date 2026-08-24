@@ -20,6 +20,14 @@ const processCards = [
     ["03", "시선 훈련", "‘어떤 순서로 봐야 하는지’를\n풀이 루틴으로 바꿔 적용합니다"]
 ];
 
+const faqItems = [
+    ["TPIS는 무엇을 분석하나요?", "PSAT 자료해석 문제를 푸는 동안 시선 이동 순서, 머문 구간, 표와 선택지를 확인하는 흐름을 분석합니다."],
+    ["합격자 풀이와 어떻게 비교하나요?", "나의 시선 경로와 고득점자의 풀이 순서를 한 화면에서 비교해 반복 확인이 생기는 지점과 먼저 봐야 할 정보를 확인합니다."],
+    ["무료 진단으로 무엇을 알 수 있나요?", "현재 풀이 습관의 병목, 합격자 풀이 전략과의 차이, 시험장에서 적용할 수 있는 훈련 방향을 확인할 수 있습니다."],
+    ["PSAT 자료해석 성적이 정체될 때 도움이 되나요?", "자료를 읽는 순서, 표와 선택지를 왕복하는 패턴, 판단이 늦어지는 구간을 확인해 성적 정체의 원인을 찾는 데 도움을 줍니다."],
+    ["5급 공채, 7급 공채, 민경채 PSAT 수험생도 사용할 수 있나요?", "PSAT 자료해석 풀이 과정을 훈련하는 서비스이므로 5급 공채, 7급 공채, 민경채 PSAT를 준비하는 수험생에게 활용할 수 있습니다."]
+];
+
 type GazeMode = "mine" | "high";
 type HeroVisualMode = "constellation" | "card";
 type ReferenceMode = "before" | "after";
@@ -148,12 +156,13 @@ function App() {
     }, [isContactOpen]);
 
     return (
-        <main className="landing">
+        <>
             <header className="site-header">
                 <a className="brand" href="#top">TPIS</a>
                 <button className="header-cta" type="button" onClick={openContactBubble}>무료 진단하기</button>
             </header>
 
+            <main className="landing">
             <section className="hero section-blue" id="top">
                 <HeroVisual />
                 <div className="floating-contact" ref={floatingContactRef}>
@@ -184,7 +193,7 @@ function App() {
             <section className="why section-muted">
                 <SectionHeading eyebrow="Why TPIS" title={<>합격자의 시선에는<br />이유가 있습니다.</>} />
                 <div className="why-animation">
-                    <img src="/assets/landing-animation.gif" alt="TPIS 시선 패턴 분석 애니메이션" />
+                    <img src="/assets/landing-animation.gif" alt="TPIS 시선 패턴 분석 애니메이션" loading="lazy" decoding="async" />
                 </div>
                 <p className="section-punch">TPIS는 인지 처리 과정을 시각화하여,<br /><strong>‘시선 패턴’</strong>으로 합격의 해답을 제시합니다.</p>
             </section>
@@ -193,7 +202,7 @@ function App() {
                 <SectionHeading eyebrow="Solution" title={<>TPIS로 합격자의 풀이를<br />나에게 이식하세요</>} />
                 <div className="solution-layout">
                     <div className="solution-media">
-                        <img className="solution-image" src="/assets/solution-view.png" alt="TPIS 분석 화면" />
+                        <img className="solution-image" src="/assets/solution-view.png" alt="TPIS PSAT 자료해석 시선 패턴 분석 화면" width="1008" height="928" loading="lazy" decoding="async" />
                         <p className="solution-caption">
                             <span className="solution-caption-desktop">왜 그렇게 보는지, 시험장에서 어떻게 쓰는지까지 해결합니다</span>
                             <span className="solution-caption-mobile">왜 그렇게 보는지,<br />시험장에서 어떻게 쓰는지까지<br />TPIS로 한 번에</span>
@@ -237,6 +246,21 @@ function App() {
                     ))}
                 </div>
             </section>
+
+            <section className="faq section-soft" aria-labelledby="faq-title">
+                <div className="section-heading">
+                    <p className="eyebrow">FAQ</p>
+                    <h2 id="faq-title">PSAT 자료해석 훈련 전<br />자주 묻는 질문</h2>
+                </div>
+                <div className="faq-list">
+                    {faqItems.map(([question, answer]) => (
+                        <article className="faq-item" key={question}>
+                            <h3>{question}</h3>
+                            <p>{answer}</p>
+                        </article>
+                    ))}
+                </div>
+            </section>
             <section className="bottom-cta section-blue">
                 <div className="bottom-cta__constellation" aria-hidden="true">
                     <HeroConstellation className="hero-constellation--cta" />
@@ -245,20 +269,25 @@ function App() {
                 <h2>합격자의 문제 풀이 방식을<br />먼저 확인해보세요</h2>
                 <button type="button" onClick={openContactBubble}>무료 진단하기</button>
             </section>
+            </main>
 
             <footer className="footer">
-                <div>
-                    <strong>TPIS</strong>
-                    <span>Third-Person to In-Sight</span>
-                    <p>합격자 문제풀이 전략 훈련 솔루션</p>
+                <div className="footer-inner">
+                    <div className="footer-brand">
+                        <div className="footer-brand__row">
+                            <strong>TPIS</strong>
+                            <span>Third-Person to In-Sight</span>
+                        </div>
+                        <p>합격자 문제풀이 전략 훈련 솔루션</p>
+                    </div>
+                    <div className="footer-business">
+                        <span>Business info</span>
+                        <p>(주)라파(LAPA)<br />CEO Il Hyun Jo</p>
+                    </div>
+                    <small>© 2026 LAPA. All rights reserved.</small>
                 </div>
-                <div>
-                    <span>Business info</span>
-                    <p>(주)라파(LAPA)<br />CEO Il Hyun Jo</p>
-                </div>
-                <small>© 2026 LAPA. All rights reserved.</small>
             </footer>
-        </main>
+        </>
     );
 }
 
@@ -371,7 +400,7 @@ function ReferenceToggle() {
                 ))}
             </div>
             <p className="reference-caption">{selectedPanel.caption}</p>
-            <img className="reference-image" key={mode} src={selectedPanel.image} alt={selectedPanel.alt} />
+            <img className="reference-image" key={mode} src={selectedPanel.image} alt={selectedPanel.alt} width="410" height={mode === "before" ? "700" : "686"} loading="lazy" decoding="async" />
         </div>
     );
 }
@@ -568,11 +597,13 @@ function Badge({ children }: { children: ReactNode }) {
 }
 
 function ComparisonPanel({ title, caption, image }: { title: string; caption: string; image: string }) {
+    const isBeforeImage = image.includes("before");
+
     return (
         <article className="comparison-panel">
             <h3>{title}</h3>
             <p>{caption}</p>
-            <img src={image} alt={`${title} 화면`} />
+            <img src={image} alt={`${title} PSAT 시선 분석 화면`} width="410" height={isBeforeImage ? "700" : "686"} loading="lazy" decoding="async" />
         </article>
     );
 }
