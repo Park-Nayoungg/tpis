@@ -246,7 +246,7 @@ function App() {
                     ))}
                 </div>
             </section>
-
+{/* 
             <section className="faq section-soft" aria-labelledby="faq-title">
                 <div className="section-heading">
                     <p className="eyebrow">FAQ</p>
@@ -260,7 +260,7 @@ function App() {
                         </article>
                     ))}
                 </div>
-            </section>
+            </section> */}
             <section className="bottom-cta section-blue">
                 <div className="bottom-cta__constellation" aria-hidden="true">
                     <HeroConstellation className="hero-constellation--cta" />
